@@ -21,12 +21,14 @@ public class BounceFrame extends JFrame {
         buttonPanel.setBackground(Color.lightGray);
         JButton buttonStart = new JButton("Start");
         JButton buttonStop = new JButton("Stop");
+        JLabel resultLabel = new JLabel("Result: " + BallCanvas.ballCounter);
+
         buttonStart.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Ball b = new Ball(canvas);
+                Ball b = new Ball(canvas, resultLabel);
                 canvas.add(b);
 
                 BallThread thread = new BallThread(b);
@@ -45,6 +47,7 @@ public class BounceFrame extends JFrame {
 
         buttonPanel.add(buttonStart);
         buttonPanel.add(buttonStop);
+        buttonPanel.add(resultLabel);
 
         content.add(buttonPanel, BorderLayout.SOUTH);
     }

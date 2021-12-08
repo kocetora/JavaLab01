@@ -4,9 +4,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Bounce {
     public static void main(String[] args) throws NoSuchMethodException {
-//        TestBilliard();
+        TestBilliard();
 //        TestCounter();
-        TestLogger();
+//        TestLogger();
     }
 
     public static void TestBilliard() {
