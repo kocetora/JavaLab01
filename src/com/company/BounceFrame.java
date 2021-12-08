@@ -21,6 +21,7 @@ public class BounceFrame extends JFrame {
         buttonPanel.setBackground(Color.lightGray);
         JButton buttonBlue = new JButton("Add blue");
         JButton buttonRed = new JButton("Add red");
+        JButton buttonJoin = new JButton("Join");
         JButton buttonStop = new JButton("Stop");
         JLabel resultLabel = new JLabel("Result: " + BallCanvas.ballCounter);
 
@@ -58,6 +59,26 @@ public class BounceFrame extends JFrame {
                         thread.getName());
             }
         });
+        buttonJoin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ball b1 = new Ball(canvas, resultLabel, Color.MAGENTA, false);
+                canvas.add(b1);
+
+                BallThread threadToWait = new BallThread(b1);
+                threadToWait.setName("Red " + threadToWait.getName());
+                threadToWait.start();
+                System.out.println("Thread name = " + threadToWait.getName());
+
+                Ball b2 = new Ball(canvas, resultLabel, Color.CYAN, false);
+                canvas.add(b2);
+
+                BallThreadJoin thread = new BallThreadJoin(b2, threadToWait);
+                thread.setName("Blue " + thread.getName());
+                thread.start();
+                System.out.println("Thread name = " + thread.getName());
+            }
+        });
         buttonStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,6 +88,7 @@ public class BounceFrame extends JFrame {
 
         buttonPanel.add(buttonBlue);
         buttonPanel.add(buttonRed);
+        buttonPanel.add(buttonJoin);
         buttonPanel.add(buttonStop);
         buttonPanel.add(resultLabel);
 

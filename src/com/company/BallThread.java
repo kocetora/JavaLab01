@@ -6,6 +6,9 @@ public class BallThread extends Thread {
     public BallThread(Ball ball){
         b = ball;
     }
+    public Ball getBall() {
+        return b;
+    }
     @Override
     public void run(){
         try{
