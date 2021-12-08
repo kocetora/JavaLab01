@@ -19,19 +19,40 @@ public class BounceFrame extends JFrame {
         content.add(this.canvas, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.lightGray);
-        JButton buttonStart = new JButton("Start");
+        JButton buttonBlue = new JButton("Add blue");
+        JButton buttonRed = new JButton("Add red");
         JButton buttonStop = new JButton("Stop");
         JLabel resultLabel = new JLabel("Result: " + BallCanvas.ballCounter);
 
-        buttonStart.addActionListener(new ActionListener() {
+        buttonBlue.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Ball b = new Ball(canvas, resultLabel);
+                for (int i = 0; i < 1000; i++) {
+                    Ball b = new Ball(canvas, resultLabel, Color.CYAN, true);
+                    canvas.add(b);
+
+                    BallThread thread = new BallThread(b);
+                    thread.setPriority(Thread.MIN_PRIORITY);
+                    thread.setName("Blue " + thread.getName());
+                    thread.start();
+                    System.out.println("Thread name = " +
+                            thread.getName());
+                }
+            }
+        });
+        buttonRed.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Ball b = new Ball(canvas, resultLabel, Color.MAGENTA, true);
                 canvas.add(b);
 
                 BallThread thread = new BallThread(b);
+                thread.setPriority(thread.MAX_PRIORITY);
+                thread.setName("Red " + thread.getName());
                 thread.start();
                 System.out.println("Thread name = " +
                         thread.getName());
@@ -44,8 +65,8 @@ public class BounceFrame extends JFrame {
             }
         });
 
-
-        buttonPanel.add(buttonStart);
+        buttonPanel.add(buttonBlue);
+        buttonPanel.add(buttonRed);
         buttonPanel.add(buttonStop);
         buttonPanel.add(resultLabel);
 

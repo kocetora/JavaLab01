@@ -16,12 +16,17 @@ public class Ball {
     private static final int POCKET_SIZE = 36;
     private JLabel resultLabel;
     public boolean isInPocket = false;
+    private Color color;
 
-    public Ball(Component c, JLabel resultLabel){
+    public Ball(Component c, JLabel resultLabel, Color color, boolean singleSpawn){
         this.canvas = c;
         this.resultLabel = resultLabel;
+        this.color = color;
 
-        if(Math.random()<0.5){
+        if(singleSpawn){
+            x = this.canvas.getWidth()/5;
+            y = this.canvas.getHeight()/10;
+        }else if(Math.random()<0.5){
             x = new Random().nextInt(this.canvas.getWidth());
             y = 0;
         }else{
@@ -35,9 +40,8 @@ public class Ball {
     }
 
     public void draw (Graphics2D g2){
-        g2.setColor(Color.darkGray);
+        g2.setColor(color);
         g2.fill(new Ellipse2D.Double(x,y,XSIZE,YSIZE));
-
     }
 
     public boolean move(){
