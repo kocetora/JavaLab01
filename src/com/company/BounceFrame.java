@@ -62,7 +62,7 @@ public class BounceFrame extends JFrame {
         buttonJoin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Ball b1 = new Ball(canvas, resultLabel, Color.MAGENTA, false);
+                Ball b1 = new Ball(canvas, resultLabel, Color.RED, false);
                 canvas.add(b1);
 
                 BallThread threadToWait = new BallThread(b1);
@@ -70,7 +70,7 @@ public class BounceFrame extends JFrame {
                 threadToWait.start();
                 System.out.println("Thread name = " + threadToWait.getName());
 
-                Ball b2 = new Ball(canvas, resultLabel, Color.CYAN, false);
+                Ball b2 = new Ball(canvas, resultLabel, Color.BLUE, false);
                 canvas.add(b2);
 
                 BallThreadJoin thread = new BallThreadJoin(b2, threadToWait);
