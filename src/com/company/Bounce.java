@@ -3,9 +3,10 @@ import javax.swing.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Bounce {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException {
 //        TestBilliard();
-        TestCounter();
+//        TestCounter();
+        TestLogger();
     }
 
     public static void TestBilliard() {
@@ -31,5 +32,21 @@ public class Bounce {
             decrementThread.join();
         } catch (InterruptedException e) { }
         System.out.println("Result: " + counter.getCounter());
+    }
+
+    public static void TestLogger() throws NoSuchMethodException {
+        Logger logger = new Logger();
+
+        LoggerThread logLinesThread = new LoggerThread(
+                logger,
+                logger.getClass()
+                      .getDeclaredMethod("logLine"));
+        logLinesThread.start();
+
+        LoggerThread logColumnsThread = new LoggerThread(
+                logger,
+                logger.getClass()
+                      .getDeclaredMethod("logColumn"));
+        logColumnsThread.start();
     }
 }
